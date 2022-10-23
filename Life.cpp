@@ -1,29 +1,36 @@
 #include "Life.h"
 
 
-Life::Life(size_t vSize, size_t hSize, wchar_t symbol) :vSize_(vSize), hSize_(hSize), symbol_(symbol)
+Life::Life(size_t vSize, size_t hSize, wchar_t symbol) :height_(vSize), width_(hSize), symbol_(symbol)
 {
 	SelectMemory();
-	for (int i = 0; i < vSize_; i++)
+	for (int i = 0; i < height_; i++)
 	{
-		for (int j = 0; j < hSize_; j++)
+		for (int j = 0; j < width_; j++)
 		{
 			field_[i][j] = (rand() % 2 == 1) ? symbol_ : ' ';
 		}
 	}
 }
 
-Life::Life(size_t vSize, size_t hSize, wchar_t symbol, std::string filePath) :vSize_(vSize), hSize_(hSize), symbol_(symbol)
+Life::Life(std::string filePath) 
 {
-	SelectMemory();
 	std::ifstream inputFile(filePath);
+	inputFile >> height_;
+	inputFile >> width_; 
+	SelectMemory();
+	int code_of_symbol;
+	inputFile >> code_of_symbol;
+	symbol_ = static_cast<wchar_t>(code_of_symbol);
+	inputFile >> code_of_symbol;
+	whitespace_ = static_cast<wchar_t>(code_of_symbol);
 	char c;
-	for (int i = 0; i < vSize_; i++)
+	for (int i = 0; i < height_; i++)
 	{
-		for (int j = 0; j < hSize_; j++)
+		for (int j = 0; j < width_; j++)
 		{
 			while (inputFile >> c && c == '\n') {}
-			field_[i][j] = (c == '0') ? ' ' : symbol_;
+			field_[i][j] = (c == '0') ? whitespace_ : symbol_;
 		}
 	}
 	inputFile.close();
@@ -32,7 +39,7 @@ Life::Life(size_t vSize, size_t hSize, wchar_t symbol, std::string filePath) :vS
 
 Life::~Life()
 {
-	for (int i = 0; i < vSize_; i++)
+	for (int i = 0; i < height_; i++)
 	{
 		delete[] field_[i];
 		delete[] field2_[i];
@@ -41,11 +48,11 @@ Life::~Life()
 	delete[] field2_;
 }
 
-void Life::Print()
+void Life::Print(std::wostream& stream)
 {
-	for (int i = 0; i < vSize_; i++)
+	for (int i = 0; i < height_; i++)
 	{
-		for (int j = 0; j < hSize_; j++)
+		for (int j = 0; j < width_; j++)
 		{
 			std::wcout << field_[i][j];
 		}
@@ -56,18 +63,18 @@ void Life::Print()
 void Life::MakeStep()
 {
 	int countOfNeighbors;
-	for (int i = 0; i < vSize_; i++)
+	for (int i = 0; i < height_; i++)
 	{
-		for (int j = 0; j < hSize_; j++)
+		for (int j = 0; j < width_; j++)
 		{
 			countOfNeighbors = CountNeighbors(i, j);
-			if (field_[i][j] == ' ' && countOfNeighbors == 3)
+			if (field_[i][j] == whitespace_ && countOfNeighbors == 3)
 			{ 
 				field2_[i][j] = symbol_; 
 			}
 			else if (field_[i][j] == symbol_ && (countOfNeighbors > 3 || countOfNeighbors < 2))
 			{
-				field2_[i][j] = ' ';
+				field2_[i][j] = whitespace_;
 			}
 			else
 			{
@@ -80,18 +87,18 @@ void Life::MakeStep()
 
 void Life::SelectMemory()
 {
-	field_ = new wchar_t*[vSize_];
-	field2_ = new wchar_t*[vSize_];
-	for (int i = 0; i < vSize_; i++)
+	field_ = new wchar_t*[height_];
+	field2_ = new wchar_t*[height_];
+	for (int i = 0; i < height_; i++)
 	{
-		field_[i] = new wchar_t[hSize_];
-		field2_[i] = new wchar_t[hSize_];
+		field_[i] = new wchar_t[width_];
+		field2_[i] = new wchar_t[width_];
 	}
 }
 
 bool Life::CanCount(int i, int j)
 {
-	return i >= 0 && i < vSize_ && j >= 0 && j < hSize_ && field_[i][j] == symbol_;
+	return i >= 0 && i < height_ && j >= 0 && j < width_ && field_[i][j] == symbol_;
 }
 
 int Life::CountNeighbors(int i, int j)
