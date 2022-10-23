@@ -22,16 +22,14 @@ int mygetch()
 int main()
 {
 	setlocale(LC_ALL, "");
-	system("clear");
 	Life life(20, 100, 9994); //9610
-	std::wcout << "Press any key to see new generation. \'q\' - for exit" << std::endl;
-	life.Print();
-	for (;mygetch()!='q';)
+	for (;;)
 	{
 		system("clear");
 		std::wcout << "Press any key to see new generation. \'q\' - for exit" << std::endl;
 		life.MakeStep();
 		life.Print();
+		if (mygetch()=='q') break;
 	}
 	system("clear");
 
