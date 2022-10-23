@@ -1,5 +1,6 @@
 #include "../third-party/ctest/ctest.h"
 
-CTEST(suite, test1) {
+CTEST(suite, simple)
+{
     ASSERT_STR("foo", "foo");
 }

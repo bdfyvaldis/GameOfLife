@@ -1,30 +1,26 @@
 #pragma once
+#include <fstream>
 #include <iostream>
 #include <string>
-#include <fstream>
 
-class Life
-{
+class Life {
 public:
-
-	Life(size_t vSize, size_t hSize, wchar_t symbol);
-	Life(std::string filePath);
-	~Life();
-	void Print(std::wostream& stream=std::wcout);
-	void MakeStep();
+    Life(size_t vSize, size_t hSize, wchar_t symbol, wchar_t whitespace);
+    Life(std::string filePath);
+    ~Life();
+    void Print(std::wostream& stream = std::wcout);
+    void MakeStep();
 
 private:
+    wchar_t** field_;
+    wchar_t** field2_;
+    size_t height_;
+    size_t width_;
+    wchar_t symbol_;
+    wchar_t whitespace_;
 
-	wchar_t** field_;
-	wchar_t** field2_;
-	size_t height_; 
-	size_t width_;
-	wchar_t symbol_;
-	wchar_t whitespace_;
+    void AllocateMemory();
 
-	void SelectMemory();
-	
-	bool CanCount(int i, int j);
-	int CountNeighbors(int i, int j);
+    bool CanCount(int i, int j);
+    int CountNeighbors(int i, int j);
 };
-
