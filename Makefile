@@ -8,6 +8,8 @@ Life.o: Life.cpp
 clear:
 	rm life Main.o Life.o test
 test: tests/test.cpp tests/main.cpp 
-	g++ tests/main.cpp tests/test.cpp Life.cpp -o test
+	g++ tests/main.cpp tests/test.cpp Life.cpp -o bin/test
 run: life 
 	./bin/life
+runtests:
+	./bin/test
