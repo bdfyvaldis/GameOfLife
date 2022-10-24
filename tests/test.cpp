@@ -1,8 +1,21 @@
 #include "../third-party/ctest/ctest.h"
 
 #include "../Life.h"
+#include <cstring>
 #include <iostream>
 #include <sstream>
+
+CTEST(TestGame, testNoFile)
+{
+    bool result = false;
+    try {
+        Life life("tests/nofile.txt");
+    } catch (std::runtime_error e) {
+        if (strcmp(e.what(), "Can't open preset-file") == 0)
+            result = true;
+    }
+    ASSERT_TRUE(result);
+}
 
 CTEST(TestGame, testPrint)
 {
