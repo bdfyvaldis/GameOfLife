@@ -11,26 +11,28 @@ Life::Life(size_t vSize, size_t hSize, wchar_t symbol, wchar_t whitespace)
     }
 }
 
-Life::Life(std::string filePath)
+Life::Life(std::string file_path)
 {
-    std::ifstream inputFile(filePath);
-    inputFile >> height_;
-    inputFile >> width_;
+    std::ifstream input_file(file_path);
+    if (!input_file)
+        throw std::runtime_error("Can't open preset-file");
+    input_file >> height_;
+    input_file >> width_;
     AllocateMemory();
     int code_of_symbol;
-    inputFile >> code_of_symbol;
+    input_file >> code_of_symbol;
     symbol_ = static_cast<wchar_t>(code_of_symbol);
-    inputFile >> code_of_symbol;
+    input_file >> code_of_symbol;
     whitespace_ = static_cast<wchar_t>(code_of_symbol);
     char c;
     for (int i = 0; i < height_; i++) {
         for (int j = 0; j < width_; j++) {
-            while (inputFile >> c && c == '\n') {
+            while (input_file >> c && c == '\n') {
             }
             field_[i][j] = (c == '0') ? whitespace_ : symbol_;
         }
     }
-    inputFile.close();
+    input_file.close();
 }
 
 Life::~Life()
