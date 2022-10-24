@@ -47,9 +47,9 @@ void Life::Print(std::wostream& stream)
 {
     for (int i = 0; i < height_; i++) {
         for (int j = 0; j < width_; j++) {
-            std::wcout << field_[i][j];
+            stream << field_[i][j];
         }
-        std::wcout << std::endl;
+        stream << std::endl;
     }
 }
 
