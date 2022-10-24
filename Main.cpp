@@ -21,7 +21,7 @@ int main()
 {
     setlocale(LC_ALL, "");
     // Life life(20, 100, 9994); //9610
-    Life life("presets//gun");
+    Life life("presets//gun.txt");
     for (;;) {
         system("clear");
         std::wcout << "Press any key to see new generation. \'q\' - for exit"
