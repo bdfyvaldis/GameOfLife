@@ -17,6 +17,18 @@ CTEST(TestGame, testNoFile)
     ASSERT_TRUE(result);
 }
 
+CTEST(TestGame, testEmptyfile)
+{
+    bool result = false;
+    try {
+        Life life("tests/not_enough_data.txt");
+    } catch (std::runtime_error e) {
+        if (strcmp(e.what(), "Incorrect structure of the input file. Check input file!") == 0)
+            result = true;
+    }
+    ASSERT_TRUE(result);
+}
+
 CTEST(TestGame, testPrint)
 {
     Life life("tests/simple.txt");

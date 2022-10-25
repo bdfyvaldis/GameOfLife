@@ -14,10 +14,16 @@ Life::Life(size_t vSize, size_t hSize, wchar_t symbol, wchar_t whitespace)
 Life::Life(std::string file_path)
 {
     std::ifstream input_file(file_path);
-    if (!input_file)
+    if (!input_file) {
         throw std::runtime_error("Can't open preset-file");
+    }
     input_file >> height_;
     input_file >> width_;
+    std::wcout << L"Вот: " << height_ << width_;
+    if (height_ <= 0 || height_ > MAX_SIZE || width_ <= 0
+        || width_ > MAX_SIZE) {
+        throw std::runtime_error("Incorrect structure of the input file. Check input file!");
+    }
     AllocateMemory();
     int code_of_symbol;
     input_file >> code_of_symbol;
@@ -57,15 +63,15 @@ void Life::Print(std::wostream& stream)
 
 void Life::MakeStep()
 {
-    int countOfNeighbors;
+    int count_of_neighbors;
     for (int i = 0; i < height_; i++) {
         for (int j = 0; j < width_; j++) {
-            countOfNeighbors = CountNeighbors(i, j);
-            if (field_[i][j] == whitespace_ && countOfNeighbors == 3) {
+            count_of_neighbors = CountNeighbors(i, j);
+            if (field_[i][j] == whitespace_ && count_of_neighbors == 3) {
                 field2_[i][j] = symbol_;
             } else if (
                     field_[i][j] == symbol_
-                    && (countOfNeighbors > 3 || countOfNeighbors < 2)) {
+                    && (count_of_neighbors > 3 || count_of_neighbors < 2)) {
                 field2_[i][j] = whitespace_;
             } else {
                 field2_[i][j] = field_[i][j];

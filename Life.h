@@ -12,6 +12,7 @@ public:
     void MakeStep();
 
 private:
+    static const int MAX_SIZE = 100; 
     wchar_t** field_;
     wchar_t** field2_;
     size_t height_;
