@@ -6,7 +6,7 @@ Life::Life(size_t vSize, size_t hSize, wchar_t symbol, wchar_t whitespace)
     AllocateMemory();
     for (int i = 0; i < height_; i++) {
         for (int j = 0; j < width_; j++) {
-            field_[i][j] = (rand() % 2 == 1) ? symbol_ : ' ';
+            field_[i][j] = (rand() % 2 == 1) ? symbol_ : whitespace_;
         }
     }
 }
