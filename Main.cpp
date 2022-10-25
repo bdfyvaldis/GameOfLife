@@ -1,4 +1,5 @@
 #include "Life.h"
+#include "Menu.h"
 #include <cstdio>
 #include <iostream>
 #include <termios.h>
@@ -20,16 +21,19 @@ int my_getch()
 int main()
 {
     setlocale(LC_ALL, "");
+    Menu menu;
+    menu.Print();
     // Life life(20, 100, 9994); //9610
-    Life life("presets//gun.txt");
-    for (;;) {
-        system("clear");
-        std::wcout << "Press any key to see new generation. \'q\' - for exit"
-                   << std::endl;
-        life.Print();
-        life.MakeStep();
-        if (my_getch() == 'q')
-            break;
-    }
-    system("clear");
+    /* Life life("presets//gun.txt");
+     for (;;) {
+         system("clear");
+         std::wcout << "Press any key to see new generation. \'q\' - for exit"
+                    << std::endl;
+         life.Print();
+         life.MakeStep();
+         if (my_getch() == 'q')
+             break;
+     }
+     system("clear");
+ */
 }
