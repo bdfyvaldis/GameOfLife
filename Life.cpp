@@ -22,7 +22,8 @@ Life::Life(std::string file_path)
     std::wcout << L"Вот: " << height_ << width_;
     if (height_ <= 0 || height_ > MAX_SIZE || width_ <= 0
         || width_ > MAX_SIZE) {
-        throw std::runtime_error("Incorrect structure of the input file. Check input file!");
+        throw std::runtime_error(
+                "Incorrect structure of the input file. Check input file!");
     }
     AllocateMemory();
     int code_of_symbol;
