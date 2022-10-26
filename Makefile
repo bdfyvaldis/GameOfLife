@@ -1,17 +1,29 @@
-life: Main.o Life.o App.o
+CFLAGS = -std=c++17
+life: obj/Main.o obj/Life.o obj/App.o
 	mkdir -p bin
-	g++ -Wall Main.o Life.o App.o -o bin/life -std=c++17
-Main.o: Main.cpp
-	g++ -c Main.cpp -std=c++17
-Life.o: Life.cpp
-	g++ -c Life.cpp -std=c++17
-App.o: App.cpp
-	g++ -c App.cpp -std=c++17
+	g++ obj/Main.o obj/Life.o obj/App.o -o bin/life 
+obj/Main.o: src/Main.cpp 
+	mkdir -p obj
+	g++ -c src/Main.cpp -o obj/Main.o
+obj/Life.o: src/Life.cpp
+	mkdir -p obj
+	g++ -c src/Life.cpp -o obj/Life.o
+obj/App.o: src/App.cpp
+	mkdir -p obj
+	g++ -c src/App.cpp -o obj/App.o
 clear:
-	rm life bin/Main.o bin/Life.o bin/test
-test: tests/test.cpp tests/main.cpp 
-	g++ tests/main.cpp tests/test.cpp Life.cpp -o bin/test -std=c++17
+	rm obj/Main.o obj/Life.o obj/App.o bin/life bin/test obj/test.o obj/testlib.a obj/main.o
+obj/testlib.a: obj/Life.o obj/test.o 
+	ar rcs obj/testlib.a obj/Life.o obj/test.o  
+obj/test.o:
+	g++ -c -I third-party/ctest -I src tests/test.cpp -o obj/test.o
+obj/main.o:
+	g++ -c -I third-party/ctest -I src -I test tests/main.cpp -o obj/main.o
+test: obj/main.o obj/Life.o obj/test.o 
+	g++ $(CFLAGS) obj/main.o obj/test.o obj/Life.o  -o bin/test
+	
 run: life 
 	./bin/life
 runtests: test
 	./bin/test
+

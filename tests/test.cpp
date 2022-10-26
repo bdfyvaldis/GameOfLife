@@ -1,7 +1,6 @@
-#include "../third-party/ctest/ctest.h"
-
-#include "../Life.h"
+#include <Life.h>
 #include <cstring>
+#include <ctest.h>
 #include <iostream>
 #include <sstream>
 
