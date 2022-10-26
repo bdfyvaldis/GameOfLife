@@ -87,7 +87,7 @@ std::wstring App::getCurrentPresetPath(const std::vector<std::wstring>& presets)
     return L"";
 }
 
-void App::Run()
+void App::MainLoop()
 {
     int c = 0;
     std::wstring preset_to_load = L"";
@@ -97,7 +97,7 @@ void App::Run()
         PrintMenu();
         life_->Print();
         if (flag_success_save) {
-            std::wcout << "State successfuly saved!";
+            std::wcout << "\033[32mState successfuly saved!";
             flag_success_save = false;
         }
         switch (c = MyGetch()) {
@@ -121,7 +121,6 @@ void App::Run()
             life_->MakeStep();
             break;
         default:
-            // std::cout << c << ' ';
             break;
         }
     }

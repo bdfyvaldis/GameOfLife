@@ -7,5 +7,5 @@ int main()
     setlocale(LC_ALL, "");
     system("clear");
     App app;
-    app.Run();
+    app.MainLoop();
 }

@@ -10,7 +10,7 @@
 class App {
 public:
     App();
-    void Run();
+    void MainLoop();
     int MyGetch();
     virtual ~App();
 
