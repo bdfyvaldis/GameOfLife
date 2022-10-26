@@ -1,4 +1,5 @@
 #include "App.h"
+
 App::App()
 {
     life_ = new Life(20, 20, 9898, 9899);
@@ -52,7 +53,6 @@ std::wstring App::getCurrentPresetPath(const std::vector<std::wstring>& presets)
 {
     int current_index = 0;
     int key = 0;
-
     while (key != KEY_ENTER) {
         if (key != KEY_SERVICE_KEY1 && key != KEY_SERVICE_KEY2) {
             system("clear");
@@ -129,7 +129,6 @@ void App::SaveCurrentState()
 {
     system("clear");
     std::wstring new_preset_name;
-
     while (true) {
         std::wcout << L"Type name of new preset.. ";
         std::string preset_name_str;

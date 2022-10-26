@@ -12,7 +12,6 @@ public:
     App();
     void MainLoop();
     virtual ~App();
-
 private:
     int MyGetch();
     static const int KEY_ENTER = 10;
@@ -20,7 +19,6 @@ private:
     static const int KEY_SERVICE_KEY2 = 91;
     static const int KEY_DOWN = 66;
     static const int KEY_UP = 65;
-
     void PrintMenu(std::wostream& stream = std::wcout);
     std::wstring getCurrentPresetPath(const std::vector<std::wstring>& presets);
     std::vector<std::wstring> getPresetsFromFilesystem();

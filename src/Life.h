@@ -11,7 +11,6 @@ public:
     void Print(std::wostream& stream = std::wcout);
     void Save(std::wstring filePath);
     void MakeStep();
-
 private:
     static const int MAX_SIZE = 100; 
     wchar_t** field_;
@@ -20,9 +19,7 @@ private:
     size_t width_;
     wchar_t symbol_;
     wchar_t whitespace_;
-
     void AllocateMemory();
-
     bool CanCount(int i, int j);
     int CountNeighbors(int i, int j);
 };
