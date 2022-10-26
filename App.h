@@ -1,20 +1,20 @@
 #pragma once
 #include "Life.h"
+#include <algorithm>
 #include <filesystem>
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
 #include <vector>
-#include <algorithm>
 
 class App {
 public:
     App();
     void MainLoop();
-    int MyGetch();
     virtual ~App();
 
 private:
+    int MyGetch();
     static const int KEY_ENTER = 10;
     static const int KEY_SERVICE_KEY1 = 27;
     static const int KEY_SERVICE_KEY2 = 91;

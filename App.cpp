@@ -1,5 +1,4 @@
 #include "App.h"
-
 App::App()
 {
     life_ = new Life(20, 20, 9898, 9899);
