@@ -6,20 +6,20 @@ Life::Life(size_t vSize, size_t hSize, wchar_t symbol, wchar_t whitespace)
     AllocateMemory();
     for (int i = 0; i < height_; i++) {
         for (int j = 0; j < width_; j++) {
-            field_[i][j] = (rand() % 2 == 1) ? symbol_ : ' ';
+            field_[i][j] = (rand() % 2 == 1) ? symbol_ : whitespace_;
         }
     }
 }
 
-Life::Life(std::string file_path)
+Life::Life(std::wstring file_path)
 {
-    std::ifstream input_file(file_path);
+    std::string filepath_string(file_path.begin(), file_path.end());
+    std::ifstream input_file(filepath_string);
     if (!input_file) {
         throw std::runtime_error("Can't open preset-file");
     }
     input_file >> height_;
     input_file >> width_;
-    std::wcout << L"Вот: " << height_ << width_;
     if (height_ <= 0 || height_ > MAX_SIZE || width_ <= 0
         || width_ > MAX_SIZE) {
         throw std::runtime_error(
@@ -118,4 +118,23 @@ int Life::CountNeighbors(int i, int j)
     if (CanCount(i + 1, j + 1))
         result++;
     return result;
+}
+
+void Life::Save(std::wstring file_path)
+{
+    std::string filepath_string(file_path.begin(), file_path.end());
+    std::ofstream output_file(filepath_string);
+    output_file << height_ << " ";
+    output_file << width_ << " ";
+    output_file << static_cast<int>(symbol_) << " ";
+    output_file << static_cast<int>(whitespace_) << std::endl;
+
+    char c;
+    for (int i = 0; i < height_; i++) {
+        for (int j = 0; j < width_; j++) {
+            output_file << (field_[i][j] == symbol_) ? 1 : 0;
+        }
+        output_file << std::endl;
+    }
+    output_file.close();
 }

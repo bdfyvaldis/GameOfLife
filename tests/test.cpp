@@ -9,7 +9,7 @@ CTEST(TestGame, testNoFile)
 {
     bool result = false;
     try {
-        Life life("tests/nofile.txt");
+        Life life(L"tests/nofile.txt");
     } catch (std::runtime_error e) {
         if (strcmp(e.what(), "Can't open preset-file") == 0)
             result = true;
@@ -21,7 +21,7 @@ CTEST(TestGame, testEmptyfile)
 {
     bool result = false;
     try {
-        Life life("tests/not_enough_data.txt");
+        Life life(L"tests/not_enough_data.txt");
     } catch (std::runtime_error e) {
         if (strcmp(e.what(),
                    "Incorrect structure of the input file. Check input file!")
@@ -33,7 +33,7 @@ CTEST(TestGame, testEmptyfile)
 
 CTEST(TestGame, testPrint)
 {
-    Life life("tests/simple.txt");
+    Life life(L"tests/simple.txt");
     std::wstringstream sstr;
     life.Print(sstr);
     std::wstring str = sstr.str();
@@ -43,7 +43,7 @@ CTEST(TestGame, testPrint)
 
 CTEST(TestGame, testMakeStep)
 {
-    Life life("tests/simple.txt");
+    Life life(L"tests/simple.txt");
     std::wstringstream sstr;
     life.MakeStep();
     life.Print(sstr);
@@ -54,7 +54,7 @@ CTEST(TestGame, testMakeStep)
 
 CTEST(TestGame, testMakeStepBorderPoints)
 {
-    Life life("tests/border.txt");
+    Life life(L"tests/border.txt");
     std::wstringstream sstr;
     life.MakeStep();
     life.Print(sstr);

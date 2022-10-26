@@ -6,9 +6,10 @@
 class Life {
 public:
     Life(size_t vSize, size_t hSize, wchar_t symbol, wchar_t whitespace);
-    Life(std::string filePath);
+    Life(std::wstring filePath);
     ~Life();
     void Print(std::wostream& stream = std::wcout);
+    void Save(std::wstring filePath);
     void MakeStep();
 
 private:
