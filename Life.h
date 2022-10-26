@@ -9,7 +9,7 @@ public:
     Life(std::wstring filePath);
     ~Life();
     void Print(std::wostream& stream = std::wcout);
-    void Save(std::string filePath);
+    void Save(std::wstring filePath);
     void MakeStep();
 
 private:

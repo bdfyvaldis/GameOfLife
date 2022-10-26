@@ -13,8 +13,8 @@ Life::Life(size_t vSize, size_t hSize, wchar_t symbol, wchar_t whitespace)
 
 Life::Life(std::wstring file_path)
 {
-    std::string ulul(file_path.begin(), file_path.end());
-    std::ifstream input_file(ulul);
+    std::string filepath_string(file_path.begin(), file_path.end());
+    std::ifstream input_file(filepath_string);
     if (!input_file) {
         throw std::runtime_error("Can't open preset-file");
     }
@@ -120,7 +120,21 @@ int Life::CountNeighbors(int i, int j)
     return result;
 }
 
-void Life::Save(std:: string filepath)
+void Life::Save(std::wstring file_path)
 {
+    std::string filepath_string(file_path.begin(), file_path.end());
+    std::ofstream output_file(filepath_string);
+    output_file << height_ << " ";
+    output_file << width_ << " ";
+    output_file << static_cast<int>(symbol_) << " ";
+    output_file << static_cast<int>(whitespace_) << std::endl;
 
+    char c;
+    for (int i = 0; i < height_; i++) {
+        for (int j = 0; j < width_; j++) {
+            output_file << (field_[i][j] == symbol_) ? 1 : 0;
+        }
+        output_file << std::endl;
+    }
+    output_file.close();
 }
