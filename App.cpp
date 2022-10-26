@@ -90,22 +90,32 @@ std::wstring App::getCurrentPresetPath(const std::vector<std::wstring>& presets)
 void App::Run()
 {
     int c = 0;
-    std::wstring preset = L"";
+    std::wstring preset_to_load = L"";
+    bool flag_success_save = false;
     while (c != 'q' && c != 'Q') {
         system("clear");
         PrintMenu();
         life_->Print();
+        if (flag_success_save) {
+            std::wcout << "State successfuly saved!";
+            flag_success_save = false;
+        }
         switch (c = MyGetch()) {
         case 'q':
         case 'Q':
             break;
         case 'l':
         case 'L':
-            preset = getCurrentPresetPath(getPresetsFromFilesystem());
-            if (preset != L"") {
+            preset_to_load = getCurrentPresetPath(getPresetsFromFilesystem());
+            if (preset_to_load != L"") {
                 delete life_;
-                life_ = new Life(preset);
+                life_ = new Life(preset_to_load);
             }
+            break;
+        case 'S':
+        case 's':
+            SaveCurrentState();
+            flag_success_save = true;
             break;
         case ' ':
             life_->MakeStep();
@@ -115,6 +125,29 @@ void App::Run()
             break;
         }
     }
+}
+
+void App::SaveCurrentState()
+{
+    system("clear");
+    std::wstring new_preset_name;
+
+    while (true) {
+        std::wcout << L"Type name of new preset.. ";
+        std::string preset_name_str;
+        std::cin >> preset_name_str;
+        new_preset_name
+                = std::wstring(preset_name_str.begin(), preset_name_str.end());
+        auto presets_list = getPresetsFromFilesystem();
+        if (std::find(presets_list.begin(), presets_list.end(), new_preset_name)
+            != presets_list.end()) {
+            std::wcout << L"File " << new_preset_name << L".txt already exists."
+                       << std::endl;
+            continue;
+        }
+        break;
+    }
+    life_->Save(L"presets//" + new_preset_name + L".txt");
 }
 
 App::~App()

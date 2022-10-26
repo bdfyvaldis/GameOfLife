@@ -5,6 +5,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <vector>
+#include <algorithm>
 
 class App {
 public:
@@ -26,4 +27,5 @@ private:
     Life* life_;
     void
     PrintPresets(const std::vector<std::wstring>& presets, int current_preset);
+    void SaveCurrentState();
 };
