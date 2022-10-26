@@ -1,9 +1,9 @@
 CFLAGS = -std=c++17 -Werror 
 CPPFLAGS = -MMD
 
-life: obj/lifelib.a obj/Main.o obj/App.o
+life: obj/Main.o obj/bundle.a 
 	mkdir -p bin
-	g++ $(CFLAGS) obj/Main.o obj/App.o obj/lifelib.a -o bin/life 
+	g++ $(CFLAGS) obj/Main.o obj/bundle.a -o bin/life 
 
 obj/Main.o: src/Main.cpp 
 	mkdir -p obj
@@ -16,6 +16,9 @@ obj/Life.o: src/Life.cpp
 obj/App.o: src/App.cpp
 	mkdir -p obj
 	g++ $(CFLAGS) $(CPPFLAGS) -c src/App.cpp -o obj/App.o
+
+obj/bundle.a: obj/Life.o obj/App.o
+	ar rcs obj/bundle.a obj/Life.o obj/App.o
 
 obj/lifelib.a: obj/Life.o
 	ar rcs obj/lifelib.a obj/Life.o
