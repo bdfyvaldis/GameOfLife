@@ -129,7 +129,6 @@ void Life::Save(std::wstring file_path)
     output_file << static_cast<int>(symbol_) << " ";
     output_file << static_cast<int>(whitespace_) << std::endl;
 
-    char c;
     for (int i = 0; i < height_; i++) {
         for (int j = 0; j < width_; j++) {
             output_file << (field_[i][j] == symbol_) ? 1 : 0;
