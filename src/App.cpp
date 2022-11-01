@@ -92,7 +92,7 @@ void App::MainLoop()
     std::wstring preset_to_load = L"";
     bool flag_success_save = false;
     while (c != 'q' && c != 'Q') {
-	std::wcout << L"\033[1;1H";
+        std::wcout << L"\033[1;1H";
         PrintMenu();
         life_->Print();
         if (flag_success_save) {
